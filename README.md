@@ -1,136 +1,207 @@
-```python?code_reference&code_event_index=1
-import os
+# ⚡ PC/FORGE — Build & Component Tracker
 
-# Define the content for the README.md
-readme_content = """# 🚀 PC Build & Component Tracker: Full-Stack Inventory System
+> A full-stack inventory management system for custom PC builders — track parts, manage stock, and assemble builds in real time.
 
-A high-end, responsive inventory management system designed for custom PC builders. This project serves as a practical demonstration of **Full-Stack Development** using the PERN stack (PostgreSQL, Express, Runtime Node.js) and Vanilla Frontend technologies (HTML, CSS, JS).
+![Stack](https://img.shields.io/badge/Stack-PERN-00dcff?style=flat-square)
+![Frontend](https://img.shields.io/badge/Frontend-Vanilla_JS-f7df1e?style=flat-square)
+![Database](https://img.shields.io/badge/Database-PostgreSQL-336791?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-00ff9d?style=flat-square)
+
+---
+
+## 📌 Overview
+
+**PC/FORGE** is a practical demonstration of full-stack development using the **PERN stack** (PostgreSQL · Express · Node.js) with a vanilla frontend (HTML5 · CSS3 · JavaScript ES6+).
+
+The system lets warehouse operators:
+- Browse and search a live component inventory
+- Add new hardware with stock and wattage metadata
+- Assemble a custom PC build with real-time cost and power tracking
+- Finalize a build, which commits stock deductions to the database
+- Delete components that are no longer carried
 
 ---
 
 ## 🛠️ Tech Stack
-* **Frontend:** Vanilla HTML5, CSS3 (Glassmorphism UI), JavaScript (ES6+).
-* **Backend:** Node.js, Express.js.
-* **Database:** PostgreSQL (Relational Database).
-* **Tools:** pgAdmin 4 (Database Management), VS Code.
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| **Frontend** | HTML5, CSS3, Vanilla JS (ES6+) | UI, search, build calculator |
+| **Backend** | Node.js, Express.js | REST API server |
+| **Database** | PostgreSQL | Persistent component & stock data |
+| **Dev Tools** | pgAdmin 4, VS Code | DB management & editing |
 
 ---
 
-## 📂 File Structure
-Understanding the directory layout is the first step to navigating this project:
+## 📂 Project Structure
 
 ```
-```text?code_stdout&code_event_index=1
-File saved to README.md
-
-```text
-pc-inventory-app/
-├── node_modules/       # Installed backend packages
-├── public/             # Frontend folder
-│   ├── index.html      # Main user interface
-│   ├── style.css       # Custom Glassmorphism styles
-│   └── script.js       # Frontend logic & API calls
-├── db.js               # PostgreSQL connection configuration
-├── server.js           # Express server & API routes
-├── package.json        # Project metadata & dependencies
-└── README.md           # Documentation (You are here!)
+pc-forge/
+├── frontend/
+│   ├── index.html          # App shell & layout
+│   ├── style.css           # Industrial terminal UI theme
+│   └── script.js           # All frontend logic (fetch, render, build)
+│
+├── backend/
+│   ├── server.js           # Express app entry point
+│   ├── db.js               # PostgreSQL connection pool
+│   └── routes/
+│       └── components.js   # REST route handlers
+│
+├── database/
+│   └── schema.sql          # Table definitions & seed data
+│
+└── README.md
 ```
 
 ---
 
-## ⚙️ Prerequisites & Initialization
+## 🚀 Getting Started
 
-To run this on your local machine, follow these steps:
+### Prerequisites
 
-### 1. Install Dependencies
-Open your terminal in the project root folder and run:
+Make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/) v18+
+- [PostgreSQL](https://www.postgresql.org/) v14+
+- [pgAdmin 4](https://www.pgadmin.org/) *(optional, for DB GUI)*
+
+---
+
+### 1. Clone the Repository
+
 ```bash
-npm install express pg cors
+git clone https://github.com/your-username/pc-forge.git
+cd pc-forge
 ```
 
-### 2. Database Setup (PostgreSQL)
-1.  Open **pgAdmin 4**.
-2.  Create a new database named `pc_inventory_db`.
-3.  Open the **Query Tool** for that database and run the SQL code provided in the project documentation to create the `components` table.
+### 2. Set Up the Database
 
----
+Open pgAdmin (or `psql`) and run the schema file:
 
-## 🌉 The Connection Logic (`db.js`)
-
-The `db.js` file is the **bridge** between your JavaScript code and the PostgreSQL database. It uses a **Connection Pool**, which is a collection of database connections that can be reused, making the app faster and more efficient.
-
-### Code Explanation:
-```javascript
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  user: 'postgres',           // Your default PostgreSQL username
-  host: 'localhost',          // Since the DB is on your computer
-  database: 'pc_inventory_db', // The specific database name
-  password: 'YOUR_PASSWORD',   // Your pgAdmin secret password (MUST BE A STRING)
-  port: 5432,                 // Default port for PostgreSQL
-});
-
-module.exports = pool;
+```sql
+-- In psql:
+\i database/schema.sql
 ```
 
-**Why this matters:** Without this file, the server wouldn't know where the "brain" (the data) is located. We export the `pool` object so that our `server.js` can use it to run SQL queries.
+This creates the `components` table and optionally seeds it with sample hardware data.
 
----
+### 3. Configure the Backend
 
-## 🚀 Running the Project
+```bash
+cd backend
+npm install
+```
 
-### Step 1: Start the Backend
-In your terminal, start the Node.js server:
+Create a `.env` file in `/backend`:
+
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=pc_forge
+DB_USER=your_postgres_user
+DB_PASSWORD=your_password
+PORT=5000
+```
+
+### 4. Start the Server
+
 ```bash
 node server.js
+# → API running at http://localhost:5000
 ```
-*You should see: "Server is running on port 5000"*
 
-### Step 2: Start the Frontend
-Do **not** just double-click the `index.html` file (this causes security errors). Instead:
-1.  Open VS Code.
-2.  Click the **Go Live** button at the bottom right (Live Server extension).
-3.  Navigate to `http://127.0.0.1:5500/public/index.html`.
+### 5. Open the Frontend
+
+Simply open `frontend/index.html` in your browser. No build step needed.
 
 ---
 
-## 💡 Core Features
-1.  **Dynamic Inventory:** View all parts fetched directly from the database.
-2.  **Optimistic UI Updates:** Stock count reduces instantly on the screen when "Select" is clicked.
-3.  **Real-Time Calculator:** Automatically sums the Price and Wattage of your selected build.
-4.  **Database Persistence:** Clicking **BUILD PC** saves your changes permanently to the database.
-5.  **Search Engine:** Filter through hundreds of parts in milliseconds using local state.
+## 🔌 API Reference
 
----
+Base URL: `http://localhost:5000/api`
 
-## 🛡️ Security Note
-This project uses **Parameterized Queries** (e.g., `WHERE id = $1`). This prevents **SQL Injection**, a common hacking technique where attackers try to run unauthorized commands on your database through input forms.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/components` | Fetch all components |
+| `POST` | `/components` | Add a new component |
+| `DELETE` | `/components/:id` | Remove a component by ID |
+| `POST` | `/build/finalize` | Commit a build (deduct stock) |
 
----
+### Example — Add a Component
 
-## 👨‍💻 Author
-Built by **Harish M.** as a project-based learning exercise to master the foundations of Full-Stack Web Development.
-"""
-
-# Save to file
-file_path = 'README.md'
-with open(file_path, 'w', encoding='utf-8') as f:
-    f.write(readme_content)
-
-print(f"File saved to {file_path}")
-
-
+```bash
+curl -X POST http://localhost:5000/api/components \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "RTX 4080 Super",
+    "brand": "NVIDIA",
+    "price": 89999,
+    "wattage": 320,
+    "stock": 5
+  }'
 ```
-Your high-end `README.md` file is ready. I have designed this to be professional enough for a GitHub portfolio but detailed enough for a beginner to understand exactly how the "bridge" between the database and the frontend works.
 
-[file-tag: code-generated-file-0-1777046502770062796]
+### Example — Finalize a Build
 
-### Key Sections Included:
-* **📂 Visual File Structure:** Explains what every file does so a beginner doesn't feel lost.
-* **⚙️ Setup Guide:** Includes the `npm` commands and the database initialization steps.
-* **🌉 Connection Logic (`db.js`):** Breaks down exactly why we use a "Pool" and what those database credentials mean.
-* **💡 Dynamic Inventory Explanation:** Highlights the "Optimistic UI" pattern you used to make the stock count reduce instantly on the screen.
-* **🛡️ Security Best Practices:** Mentions the SQL Parameterization you used to prevent SQL injection.
+```bash
+curl -X POST http://localhost:5000/api/build/finalize \
+  -H "Content-Type: application/json" \
+  -d '{ "ids": [1, 3, 7, 12] }'
+```
 
-You can now upload this directly to your GitHub repository along with your code! Do you need help with the final Git commands to push everything to your repository?
+---
+
+## ✨ Features
+
+- **Live Inventory Grid** — cards render dynamically from the database with real-time stock counts
+- **Search & Filter** — instant client-side filtering by component name or brand
+- **Build Calculator** — tracks cumulative cost (₹) and total power draw (W) as parts are selected
+- **600W Power Limit Guard** — wattage counter turns red and pulses when the build exceeds the PSU limit
+- **Stock Management** — stock decrements on selection; `OUT OF STOCK` blocks further selection
+- **Add / Delete Hardware** — full CRUD via the form panel and card delete buttons
+- **Persistent Finalization** — `BUILD PC` posts selected IDs to the backend, committing stock changes to PostgreSQL
+
+---
+
+## 🗄️ Database Schema
+
+```sql
+CREATE TABLE components (
+    component_id  SERIAL PRIMARY KEY,
+    name          VARCHAR(100)   NOT NULL,
+    brand         VARCHAR(50)    NOT NULL,
+    price         NUMERIC(10,2)  NOT NULL,
+    wattage       INT            DEFAULT 0,
+    stock_qty     INT            NOT NULL DEFAULT 0,
+    created_at    TIMESTAMP      DEFAULT NOW()
+);
+```
+
+---
+
+## 🔮 Planned Improvements
+
+- [ ] JWT-based admin authentication
+- [ ] Component category tagging (GPU, CPU, RAM, etc.) with filter tabs
+- [ ] Build history log stored in a `builds` table
+- [ ] Compatibility warnings (e.g. socket mismatch between CPU and motherboard)
+- [ ] Export build as PDF quote / invoice
+- [ ] Dark/light theme toggle
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
+
+1. Fork the repo
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m 'feat: add your feature'`
+4. Push and open a PR
+
+---
+
+## 📄 License
+
+MIT © 2025 — built as a full-stack learning project.
