@@ -202,6 +202,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ---
 
-## 📄 License
+<img width="1920" height="1796" alt="image" src="https://github.com/user-attachments/assets/d2c3fd3a-60e0-4907-add3-8207bad941b8" />
 
-MIT © 2025 — built as a full-stack learning project.
+
