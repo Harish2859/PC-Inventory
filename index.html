@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Build & Component Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Animated background grid -->
+    <div class="bg-grid"></div>
+    <div class="bg-scanline"></div>
+    <div class="noise-overlay"></div>
+
+    <div class="container">
+
+        <!-- ── HEADER ── -->
+        <header>
+            <div class="header-badge">WAREHOUSE v2.1</div>
+            <h1>PC<span class="accent-slash">/</span>FORGE</h1>
+            <p class="header-sub">Component Inventory & Build System</p>
+
+            <div class="stat-strip">
+                <div class="stat-chip">
+                    <span class="stat-label">SYSTEM</span>
+                    <span class="stat-value online">ONLINE</span>
+                </div>
+                <div class="stat-chip">
+                    <span class="stat-label">PWR LIMIT</span>
+                    <span class="stat-value">600W</span>
+                </div>
+                <div class="stat-chip">
+                    <span class="stat-label">BUILD SLOT</span>
+                    <span class="stat-value" id="build-count">0 PARTS</span>
+                </div>
+            </div>
+
+            <section class="controls">
+                <div class="search-wrapper">
+                    <span class="search-icon">⌕</span>
+                    <input type="text" id="search-bar" placeholder="Search components, brands…">
+                    <span class="search-shortcut">⌘K</span>
+                </div>
+            </section>
+        </header>
+
+        <!-- ── ADD COMPONENT FORM ── -->
+        <section class="add-component-form">
+            <div class="form-header">
+                <span class="form-tag">NEW HARDWARE</span>
+                <h2>Register Component</h2>
+            </div>
+            <form id="part-form">
+                <div class="input-group">
+                    <label>Component Name</label>
+                    <input type="text" id="name" placeholder="e.g. RTX 4080 Super" required>
+                </div>
+                <div class="input-group">
+                    <label>Brand</label>
+                    <input type="text" id="brand" placeholder="e.g. NVIDIA" required>
+                </div>
+                <div class="input-group">
+                    <label>Price (₹)</label>
+                    <input type="number" id="price" placeholder="0.00" required>
+                </div>
+                <div class="input-group">
+                    <label>Wattage (W)</label>
+                    <input type="number" id="wattage" placeholder="0">
+                </div>
+                <div class="input-group">
+                    <label>Initial Stock</label>
+                    <input type="number" id="stock" placeholder="0" required>
+                </div>
+                <button type="submit" class="btn-add">
+                    <span class="btn-icon">+</span>
+                    <span>Add to Inventory</span>
+                </button>
+            </form>
+        </section>
+
+        <!-- ── COMPONENT GRID ── -->
+        <div class="grid-header">
+            <h2 class="grid-title">Inventory</h2>
+            <div class="grid-line"></div>
+        </div>
+        <main id="component-grid">
+            <p class="loading-text">
+                <span class="blink">▋</span> Loading components…
+            </p>
+        </main>
+    </div>
+
+    <!-- ── BUILD BAR ── -->
+    <div id="build-summary" class="build-bar">
+        <div class="build-bar-inner">
+            <div class="build-metric">
+                <span class="metric-label">TOTAL COST</span>
+                <span class="metric-value" id="total-cost">₹0.00</span>
+            </div>
+            <div class="build-metric">
+                <span class="metric-label">POWER DRAW</span>
+                <span class="metric-value" id="total-wattage">0W</span>
+            </div>
+            <div class="build-actions">
+                <button id="build-pc-btn" onclick="finalizeBuild()" class="btn-build">
+                    <span class="btn-build-text">BUILD PC</span>
+                    <span class="btn-build-arrow">→</span>
+                </button>
+                <button onclick="location.reload()" class="btn-reset" title="Reset Build">↺</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
