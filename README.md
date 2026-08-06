@@ -10,7 +10,7 @@
 ---
 ## 📌 Overview
 
-**PC/FORGE** is a practical demonstration of full-stack development using the **PERN stack** (PostgreSQL · Express · Node.js) with a vanilla frontend (HTML5 · CSS3 · JavaScript ES6+).
+**PC/FORGE** is a practical demonstration of full-stack development using the **Pern stack** (PostgreSQL · Express · Node.js) with a vanilla frontend (HTML5 · CSS3 · JavaScript ES6+).
 
 The system lets warehouse operators:
 - Browse and search a live component inventory
