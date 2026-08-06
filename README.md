@@ -33,7 +33,6 @@ The system lets warehouse operators:
 ---
 
 ## 📂 Project Structure
-
 ```
 pc-forge/
 ├── frontend/
