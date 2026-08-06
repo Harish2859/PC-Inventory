@@ -8,7 +8,6 @@
 ![License](https://img.shields.io/badge/License-MIT-00ff9d?style=flat-square)
 
 ---
-
 ## 📌 Overview
 
 **PC/FORGE** is a practical demonstration of full-stack development using the **PERN stack** (PostgreSQL · Express · Node.js) with a vanilla frontend (HTML5 · CSS3 · JavaScript ES6+).
