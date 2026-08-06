@@ -29,7 +29,6 @@ The system lets warehouse operators:
 | **Backend** | Node.js, Express.js | REST API server |
 | **Database** | PostgreSQL | Persistent component & stock data |
 | **Dev Tools** | pgAdmin 4, VS Code | DB management & editing |
-
 ---
 
 ## 📂 Project Structure
