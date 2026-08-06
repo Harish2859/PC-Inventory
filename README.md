@@ -1,4 +1,4 @@
-# ⚡ PC/FORGE — Build & Component Tracker
+# ⚡ PC/FORGE - Build & Components Tracker
 
 > A full-stack inventory management system for custom PC builders — track parts, manage stock, and assemble builds in real time.
 
